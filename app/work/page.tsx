@@ -8,6 +8,24 @@ import { useEffect } from 'react';
 
 export default function WorkPage() {
     const controls = useAnimation();
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://convergedigital.com"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Work",
+                "item": "https://convergedigital.com/work"
+            }
+        ]
+    };
 
     useEffect(() => {
         controls.start("visible");
@@ -31,6 +49,10 @@ export default function WorkPage() {
             className="min-h-screen"
             style={{ background: '#0c0c0b' }}
         >
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             {/* BREADCRUMB — constrained */}
             <div style={{
                 paddingTop: '96px',
@@ -98,4 +120,3 @@ export default function WorkPage() {
         </main>
     );
 }
-

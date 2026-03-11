@@ -1,25 +1,39 @@
+import type { Metadata } from 'next'
 import { projects } from '@/data/projects'
 import { notFound } from 'next/navigation'
 import CaseStudyTemplate from '@/components/templates/CaseStudyTemplate'
+import { buildMetadata } from '@/lib/seo'
 
-export async function generateMetadata({
+export function generateMetadata({
     params
 }: {
     params: { slug: string }
-}) {
+}): Metadata {
     const project = projects.find(p => p.slug === params.slug)
 
-    if (!project) return {}
-
-    return {
-        title: `${project.name} — Converge Digitals`,
-        description: project.problem.headline,
-        openGraph: {
-            title: `${project.name} — Converge Digitals`,
-            description: project.problem.headline,
-            type: 'article',
-        },
+    if (!project) {
+        return {
+            title: 'Project not found',
+            robots: {
+                index: false,
+                follow: false,
+            },
+        }
     }
+
+    return buildMetadata({
+        title: `${project.name} Case Study`,
+        description: project.problem.headline,
+        path: `/work/${project.slug}`,
+        keywords: [
+            project.name,
+            project.category.toLowerCase(),
+            project.scope.toLowerCase(),
+            'case study',
+            'product development',
+        ],
+        type: 'article',
+    })
 }
 
 export default function CaseStudyPage({

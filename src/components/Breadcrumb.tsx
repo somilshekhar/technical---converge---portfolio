@@ -13,7 +13,7 @@ interface BreadcrumbProps {
 
 export function Breadcrumb({ items }: BreadcrumbProps) {
     return (
-        <nav className="flex items-center gap-2">
+        <nav className="flex items-center gap-2" aria-label="Breadcrumb">
             {items.map((item, index) => (
                 <div key={index} className="flex items-center gap-2">
 
@@ -51,13 +51,16 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
                             {item.label}
                         </Link>
                     ) : (
-                        <span style={{
-                            fontFamily: 'monospace',
-                            fontSize: '11px',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.12em',
-                            color: 'rgba(255,255,255,0.6)'
-                        }}>
+                        <span
+                            aria-current="page"
+                            style={{
+                                fontFamily: 'monospace',
+                                fontSize: '11px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.12em',
+                                color: 'rgba(255,255,255,0.6)'
+                            }}
+                        >
                             {item.label}
                         </span>
                     )}
